@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>社内用 売価計算システム V3</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app" class="app-shell" style="display: none;">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <nav class="tabs" aria-label="メインタブ">
+          <button class="tab-button is-active" data-tab="calculator">圧着計算</button>
+          <button class="tab-button" data-tab="body-size">ボディサイズ</button>
+          <button class="tab-button" data-tab="mast">マスト</button>
+          <button class="tab-button" data-tab="delivery">お届け日</button>
+          <button class="tab-button" data-tab="manual">マニュアル</button>
+          <button class="tab-button" data-tab="ai">単語検索</button>
+          <button class="tab-button" data-tab="designGuide">デザインガイドライン</button>
+        </nav>
+
+        <div class="search-box">
+          <span class="search-icon">⌕</span>
+          <input type="text" id="manualSearch" placeholder="全体検索" />
+          <div id="globalSearchResults" class="global-search-results" hidden></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-area">
+      <section class="screen is-active" id="screen-calculator">
+        <div class="screen-inner">
+          <h1 class="page-title">社内用 売価計算システム</h1>
+
+          <div class="top-form">
+            <div class="form-label">ボディの種類</div>
+            <div class="form-input">
+              <select id="bodySelect"></select>
+            </div>
+
+            <div class="form-label">枚数</div>
+            <div class="form-input">
+              <input type="number" id="quantityInput" min="0" value="0" />
+            </div>
+          </div>
+
+          <button id="resetBtn" class="reset-button">計算リセット</button>
+
+          <div class="shirt-area">
+            <div class="shirt-card">
+              <div class="shirt-title">前面</div>
+              <div class="shirt-image-wrap">
+                <img src="image/前面イメージ.png" alt="Tシャツ前面" class="shirt-image" />
+
+                <select class="overlay-select print-select front-left-shoulder" data-type="sleeve"></select>
+                <select class="overlay-select print-select front-left-chest" data-type="chest"></select>
+                <select class="overlay-select print-select front-right-chest" data-type="chest"></select>
+                <select class="overlay-select print-select front-center" data-type="big"></select>
+                <select class="overlay-select print-select front-right-shoulder" data-type="sleeve"></select>
+              </div>
+            </div>
+
+            <div class="shirt-card">
+              <div class="shirt-title">背面</div>
+              <div class="shirt-image-wrap">
+                <img src="image/背面イメージ.png" alt="Tシャツ背面" class="shirt-image" />
+                <select class="overlay-select print-select back-center" data-type="big"></select>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="summary-card summary-card-sale">
+              <div class="summary-card-label">通常売価</div>
+              <div class="summary-card-value" id="salePrice">¥0</div>
+            </div>
+
+            <div class="summary-card">
+              <div class="summary-card-label">最低価格（上司相談）</div>
+              <div class="summary-card-value" id="minPrice">¥0</div>
+            </div>
+          </div>
+
+          <div class="detail-box">
+            <div><strong>ボディ代（1枚）</strong><span id="detailBody">0円</span></div>
+            <div><strong>印刷代（1枚合計）</strong><span id="detailPrint">0円</span></div>
+            <div><strong>輸送コスト</strong><span id="detailShipping">0円</span></div>
+            <div><strong>消費税</strong><span>1.1倍</span></div>
+            <div class="note">
+              計算式：｛（（ボディ代＋印刷代）×枚数）＋輸送コスト｝×1.1 ÷ 枚数
+            </div>
+            <div class="cost-note">原価：<span id="costPrice">¥0</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-body-size">
+        <div class="wide-screen-inner">
+          <img src="image/print.jpg" alt="昇華サイズ表" class="mockup-image" />
+          <img src="image/dtfprint.jpg" alt="圧着サイズ表" class="mockup-image" />
+        </div>
+      </section>
+
+      <section class="screen" id="screen-mast">
+        <div class="wide-screen-inner">
+          <div class="accordion-card is-open" data-accordion>
+            <button class="accordion-header" type="button">
+              <span class="accordion-arrow">⌄</span>
+              <span class="accordion-title">4 月</span>
+            </button>
+            <div class="accordion-body">
+              <img src="image/must/4.png" alt="4月のマスト" class="mast-image" />
+            </div>
+          </div>
+
+          <div class="accordion-card is-open" data-accordion>
+            <button class="accordion-header" type="button">
+              <span class="accordion-arrow">⌄</span>
+              <span class="accordion-title">3 月</span>
+            </button>
+            <div class="accordion-body">
+              <img src="image/must/3.png" alt="3月のマスト" class="mast-image" />
+            </div>
+          </div>
+
+          <div class="accordion-card" data-accordion>
+            <button class="accordion-header" type="button">
+              <span class="accordion-arrow">›</span>
+              <span class="accordion-title">2 月</span>
+            </button>
+            <div class="accordion-body">
+              <img src="image/must/2.png" alt="2月のマスト" class="mast-image" />
+            </div>
+          </div>
+
+          <div class="accordion-card" data-accordion>
+            <button class="accordion-header" type="button">
+              <span class="accordion-arrow">›</span>
+              <span class="accordion-title">1 月</span>
+            </button>
+            <div class="accordion-body">
+              <img src="image/must/1.png" alt="1月のマスト" class="mast-image" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-delivery">
+        <div class="wide-screen-inner">
+          <img src="image/map.png" alt="お届け日画面" class="mockup-image" />
+        </div>
+      </section>
+
+      <section class="screen" id="screen-manual">
+        <div class="screen-inner manual-layout">
+          <p class="design-guide-eyebrow">👷工事中です👷</p>
+          <div class="manual-section" data-manual-section>
+            <h2 class="manual-heading">新規</h2>
+            <div class="manual-list">
+              <a class="manual-item" href="pdf/新規マニュアル.pdf" target="_blank" data-title="新規マニュアル.pdf">
+                <span class="manual-icon">📄</span>
+                <span>新規マニュアル.pdf</span>
+              </a>
+              <a class="manual-item" href="#" data-title="困った時は.pdf">
+                <span class="manual-icon">📄</span>
+                <span>（仮置き）困った時は.pdf</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="manual-section" data-manual-section>
+            <h2 class="manual-heading">G.</h2>
+            <div class="manual-list">
+              <a class="manual-item" href="#" data-title="G.マニュアル.pdf">
+                <span class="manual-icon">📄</span>
+                <span>（仮置き）G.マニュアル.pdf</span>
+              </a>
+              <a class="manual-item" href="#" data-title="Q&A.pdf">
+                <span class="manual-icon">📄</span>
+                <span>（仮置き）Q&A.pdf</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="manual-section" data-manual-section>
+            <h2 class="manual-heading">圧着</h2>
+            <div class="manual-list">
+              <a class="manual-item" href="#" data-title="圧着手順.pdf">
+                <span class="manual-icon">📄</span>
+                <span>（仮置き）圧着手順.pdf</span>
+              </a>
+              <a class="manual-item" href="#" data-title="DTF機が壊れたら.pdf">
+                <span class="manual-icon">📄</span>
+                <span>（仮置き）DTF機が壊れたら.pdf</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="manual-section" data-manual-section>
+            <h2 class="manual-heading">発送</h2>
+            <div class="manual-list">
+              <a class="manual-item" href="#" data-title="発送のやり方.pdf">
+                <span class="manual-icon">📄</span>
+                <span>（仮置き）発送のやり方.pdf</span>
+              </a>
+              <a class="manual-item" href="#" data-title="発送連絡手順.pdf">
+                <span class="manual-icon">📄</span>
+                <span>（仮置き）発送連絡手順.pdf</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="manual-section" data-manual-section>
+            <h2 class="manual-heading">発送</h2>
+            <div class="manual-list">
+              <a class="manual-item" href="#" data-title="発注書マニュアル.pdf">
+                <span class="manual-icon">📄</span>
+                <span>発注書マニュアル.pdf</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="manual-section" data-manual-section>
+            <h2 class="manual-heading">電話</h2>
+            <div class="manual-list">
+              <a class="manual-item" href="#" data-title="電話マニュアル.pdf">
+                <span class="manual-icon">📄</span>
+                <span>（仮置き）電話マニュアル.pdf</span>
+              </a>
+              <a class="manual-item" href="pdf/クレーム対応マニュアル.pdf" target="_blank" data-title="クレーム対応マニュアル.pdf">
+                <span class="manual-icon">📄</span>
+                <span>クレーム対応マニュアル.pdf</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-ai">
+        <div class="screen-inner">
+          <div class="ai-container">
+            <div class="ai-header">
+              <p class="design-guide-eyebrow">👷工事中です👷</p>
+              <h2 class="ai-title">単語検索</h2>
+              <p class="ai-description">登録キーワードに一致した単語の意味をお答えします。まだ全然登録できてません！使わないで😖</p>
+            </div>
+
+            <div id="chat-log" class="chat-log">
+              <div class="ai-msg">
+                <div class="msg-label">🤖</div>
+                <div class="msg-bubble">知りたい単語を教えてください</div>
+              </div>
+            </div>
+
+            <div class="quick-questions">
+              <button type="button" class="quick-question" data-question="リオーダーって何？">リオーダー</button>
+              <button type="button" class="quick-question" data-question="圧着とは何？">圧着</button>
+            </div>
+
+            <div class="chat-input-area">
+              <textarea
+              id="chat-input"
+              class="chat-textarea"
+              placeholder="例：昇華ってなに？"
+              rows="3"
+              ></textarea>
+              <button id="chat-send-button" class="chat-send-button" type="button">送信</button>
+            </div>
+
+            <div class="ai-note">
+              ※Shift+Enterで送信
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen" id="screen-designGuide">
+        <div class="screen-inner design-guide-layout">
+          <div class="design-guide-hero">
+            <p class="design-guide-eyebrow">👷工事中です👷</p>
+            <h1 class="design-guide-title">持ち込みデザインの可否について</h1>
+            <p class="design-guide-lead">あくまでも参考程度に閲覧してください。<br>判断に迷う場合は必ず上司に相談してください。
+          </div>
+
+          <div class="design-subtabs" role="tablist" aria-label="デザインガイドライン項目">
+            <button class="design-subtab is-active" type="button" data-guide="color">カラーについて</button>
+            <button class="design-subtab" type="button" data-guide="detail">画像について</button>
+            <button class="design-subtab" type="button" data-guide="name">背ネームについて</button>
+            <button class="design-subtab" type="button" data-guide="glitter">グリッターについて</button>
+            <button class="design-subtab" type="button" data-guide=" print">印刷サイズ・位置について</button>
+          </div>
+
+          <div class="design-guide-content">
+            <section class="guide-panel is-active" id="guide-color">
+              <h2>RGBとCMYKについて</h2>
+              <div class="guide-card">
+                <p>デザインや印刷に関わる上で避けて通れないのが、「RGB」と「CMYK」という2つの色の表現形式です。</p>
+                <img src="image/rgbcmyk.jpg" alt="圧着サイズ表" class="gaideline" />
+                <p>RGBは<strong>「モニターで見るための色」、</strong><br>
+                    CMYKは<strong>「紙に印刷するための色」</strong>となります。<br>
+                    モニターでは表示できる高い彩度のカラーは、インクの都合上印刷で表現することはできません。<br>
+                    逆にモニターではCMYKのカラーをある程度再現できますが、作業環境によって見え方が変わるため<br>
+                    印刷物と完全一致はしません。<br>
+                    持ち込みデザインで「これできますか？」と聞かれた際、<br>
+                    少しでも判断に迷う場合は必ず上司に相談してください。</p>
+                <ul>
+                  <li>「完全一致」ではなく、<strong>近い色味での再現</strong> になることを先に伝えるとトラブルを減らせます。</li>
+                </ul>
+              </div>
+              <h2>グラデーションについて</h2>
+              <div class="guide-card">
+                <p>昇華でグラデーションのボディをご希望されている場合、作成自体は可能ですが注意点があります。</p>
+                <p>金井はここに注意点を書いておく</p>
+            </section>
+
+            <section class="guide-panel" id="guide-detail">
+              <h2>細かいデザインについて。</h2>
+              <div class="guide-card">
+                <p>線が細いデザインは印刷できません。<br>
+                特に圧着では、圧着機で貼り付ける際、細かすぎてうまくくっつがず、<br>
+                気が付かないうちに剥がれてしまいクレームへ発展するケースがあります。<br>
+                また、ラメは一枚のシートからカッターでデザインを切り出して、
+                余分な部分を取り除く「抜き」という工程があるため、<br>
+                さらに単純なデザインに限定されます。<br>
+                <br>
+                昇華は圧着に比べれば細かいデザインが得意な方ですが、<br>
+                あまりにも細いデザインは他の色に負けて見えなくなってしまうことがあります。<br>
+                いずれにせよ判断に迷う場合は上司へ相談しましょう。</p>
+                <div class="guide-tip">少しでも迷ったら迷ったら必ず上司へ相談しましょう</div>
+              </div>
+              <h2>画質の荒い画像について</h2>
+              <div class="guide-card">
+                <p>基本的に画像はいただいたまま使用します。<br>
+                そのため画質の荒いものはぼやけて見えます。<br>
+                続きをかきます❗️</p>
+              </div>
+              <h2>透過画像を頂いたら</h2>
+              <div class="guide-card">
+                <p>基本的に画像はいただいたまま使用します。<br>
+                続きをかきます❗️</p>
+              </div>
+            </section>
+
+            <section class="guide-panel" id="guide-name">
+              <h2>背ネームについて</h2>
+              <div class="guide-card">
+                <p>背ネーム・背番号は</p>
+                <ul>
+                  <li>文字数が多い場合は、横幅の都合でかなり小さくなることがあります。</li>
+                  <li>番号と名前を連動させるデザインは、一覧管理ミスが起きやすいので事前確認が重要です。</li>
+                  <li>旧字体・特殊記号・絵文字は、フォント対応の可否を先に確認してください。</li>
+                </ul>
+                <div class="guide-tip">入稿前は「スペル」「大文字小文字」「番号との対応」を必ず一覧で見直すのがおすすめです。</div>
+              </div>
+            </section>
+
+            <section class="guide-panel" id="guide-name">
+              <h2>画質について</h2>
+              <div class="guide-card">
+                <p>持ち込み画像の画質が著しく悪いとき、</p>
+                <ul>
+                  <li>文字数が多い場合は、横幅の都合でかなり小さくなることがあります。</li>
+                  <li>番号と名前を連動させるデザインは、一覧管理ミスが起きやすいので事前確認が重要です。</li>
+                  <li>旧字体・特殊記号・絵文字は、フォント対応の可否を先に確認してください。</li>
+                </ul>
+                <div class="guide-tip">入稿前は「スペル」「大文字小文字」「番号との対応」を必ず一覧で見直すのがおすすめです。</div>
+              </div>
+            </section>
+
+            <section class="guide-panel" id="guide-glitter">
+              <h2>著作物について</h2>
+              <div class="guide-card">
+                <p>グリッターは見た目のインパクトが強い一方で、細かい表現との相性はあまり良くありません。面で見せるデザインほどきれいに仕上がりやすいです。</p>
+                <ul>
+                  <li>細かすぎる線や小さい抜きは、グリッターでは再現できない場合があります。</li>
+                  <li>光り方や粒感の見え方は、写真と実物で差が出やすいです。</li>
+                  <li>広めの面・シンプルな形・太めの文字の方が仕上がりが安定します。</li>
+                </ul>
+                <div class="guide-tip">「どこまで細かいと難しいか」はデザイン次第なので、迷う案件は先に相談へ回す運用が安全です。</div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <div id="commandPalette" class="command-palette hidden">
+  <div class="command-box">
+    <input
+      id="commandInput"
+      type="text"
+      placeholder="検索（例：グリッター / 発送 / 昇華）"
+      autocomplete="off"
+    />
+    <div id="commandResults" class="command-results"></div>
+  </div>
+</div>
+
+  <script src="script.js"></script>
+
+
+</body>
+</html>
