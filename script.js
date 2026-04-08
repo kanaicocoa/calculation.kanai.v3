@@ -3,7 +3,7 @@ document.getElementById("app").style.display = "block";
 const bodyMaster = [
   { id: "dry-shirt", name: "選択してください", price: 0 },
   { id: "dry-shirt", name: "ドライシャツ", price: 280 },
-  { id: "cotton-shirt", name: "綿Tシャツ", price: 415 },
+  { id: "cotton-shirt", name: "コットンTシャツ", price: 415 },
   { id: "long-sleeve", name: "ドライロンT", price: 400 },
   { id: "long-sleeve", name: "コットンロンT", price: 560 },
   { id: "polo", name: "ドライポロ", price: 510 },
