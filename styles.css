@@ -15,7 +15,10 @@
 
 body {
   margin: 0;
-  font-family: "TsukuARdGothic-Regular", "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-family:
+    "Zen Maru Gothic",
+    "Yu Gothic",
+    sans-serif;
   background: #666;
   color: var(--text);
 }
