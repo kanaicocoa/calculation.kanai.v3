@@ -1,1051 +1,858 @@
-* {
-  box-sizing: border-box;
-}
-
-:root {
-  --bg: #efefef;
-  --panel: #f8f8f8;
-  --line: #d5d5d5;
-  --line-strong: #2b2b2b;
-  --text: #111;
-  --muted: #8a8a8a;
-  --accent: #ffe600;
-  --light: #ffffff;
-}
-
-body {
-  margin: 0;
-  font-family: "TsukuARdGothic-Regular", "Hiragino Sans", "Yu Gothic", sans-serif;
-  background: #666;
-  color: var(--text);
-}
-
-button,
-input,
-select {
-  font: inherit;
-}
-
-.app-shell {
-  min-height: 100vh;
-  background: var(--bg);
-}
-
-.topbar {
-  background: #f4f4f4;
-  border-bottom: 1px solid #cfcfcf;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.topbar-inner {
-  max-width: 1440px;
-  margin: 0 auto;
-  min-height: 76px;
-  padding: 0 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.tabs {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.tab-button {
-  flex: 0 0 auto;
-  border: none;
-  background: transparent;
-  color: #b0b0b0;
-  font-size: 18px;
-  font-weight: 800;
-  padding: 50px 10px 10px;
-  border-bottom: 3px solid transparent;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.tab-button.is-active {
-  color: #111;
-  border-bottom-color: #111;
-}
-
-.search-box {
-  width: 320px;
-  max-width: 100%;
-  min-height: 38px;
-  border-radius: 999px;
-  background: #e8e8e8;
-  padding: 0 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-}
-
-.search-icon {
-  color: #8f8f8f;
-  font-size: 14px;
-}
-
-.search-box input {
-  width: 100%;
-  border: none;
-  background: transparent;
-  outline: none;
-  color: #666;
-  font-size: 13px;
-}
-
-.global-search-results {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  width: min(420px, 82vw);
-  max-height: 420px;
-  overflow-y: auto;
-  background: #fff;
-  border: 1px solid #d7d7d7;
-  border-radius: 18px;
-  padding: 8px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
-  z-index: 1200;
-}
-
-.global-search-results[hidden] {
-  display: none;
-}
-
-.global-search-item {
-  width: 100%;
-  border: none;
-  background: transparent;
-  text-align: left;
-  border-radius: 14px;
-  padding: 12px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  cursor: pointer;
-}
-
-.global-search-item:hover {
-  background: #f4f4f4;
-}
-
-.global-search-label {
-  font-size: 12px;
-  font-weight: 700;
-  color: #8a8a8a;
-}
-
-.global-search-title {
-  font-size: 15px;
-  color: #111;
-  line-height: 1.5;
-}
-
-.global-search-preview {
-  font-size: 13px;
-  color: #666;
-  line-height: 1.6;
-}
-
-.global-search-empty {
-  padding: 14px;
-  font-size: 13px;
-  color: #777;
-}
-
-.search-hit {
-  outline: 3px solid rgba(255, 230, 0, 0.75);
-  outline-offset: 4px;
-  border-radius: 12px;
-}
-
-.main-area {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 30px 24px 48px;
-}
-
-.screen {
-  display: none;
-}
-
-.screen.is-active {
-  display: block;
-}
-
-.screen-inner {
-  max-width: 980px;
-  margin: 0 auto;
-}
-
-.wide-screen-inner {
-  width: 80%;
-  max-width: 1320px;
-  margin: 0 auto;
-}
-
-.page-title {
-  margin: 18px auto 22px;
-  max-width: 860px;
-  font-size: 28px;
-  font-weight: 800;
-}
-
-.top-form {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 12px;
-  max-width: 860px;
-  margin: 0 auto 24px;
-}
-
-.form-label,
-.form-input {
-  background: #fff;
-  border: 2px solid #c8c8c8;
-  min-height: 58px;
-  display: flex;
-  align-items: center;
-  padding: 0 18px;
-  font-size: 22px;
-}
-
-.form-label {
-  font-weight: 800;
-  justify-content: center;
-}
-
-.form-input select,
-.form-input input {
-  width: 100%;
-  border: none;
-  outline: none;
-  font-size: 22px;
-  background: transparent;
-}
-
-.reset-button {
-  display: block;
-  margin: 8px auto 18px;
-  padding: 10px 22px;
-  font-size: 16px;
-  font-weight: 700;
-  border: 2px solid #111;
-  background: #fff;
-  cursor: pointer;
-}
-
-.reset-button:hover {
-  background: #111;
-  color: #fff;
-}
-
-.shirt-area {
-  display: flex;
-  gap: 28px;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: center;
-  margin-bottom: 12px;
-}
-
-.shirt-card {
-  width: 420px;
-}
-
-.shirt-title {
-  font-size: 24px;
-  font-weight: 800;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-.shirt-image-wrap {
-  position: relative;
-  width: 100%;
-  background: #fcfcfc;
-  border: 1px solid #d8d8d8;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.shirt-image {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.overlay-select {
-  position: absolute;
-  width: 110px;
-  height: 40px;
-  border: 2px solid #222;
-  background: rgba(255, 255, 255, 0.96);
-  font-size: 14px;
-  padding: 2px 4px;
-}
-
-.front-center { top: 150px; left: 135px; width: 130px; }
-.back-center { top: 70px; left: 135px; width: 130px; }
-.front-left-chest { top: 80px; left: 130px; }
-.front-right-chest { top: 80px; right: 130px; }
-.front-left-shoulder { top: 75px; left: 20px; }
-.front-right-shoulder { top: 75px; right: 20px; }
-
-.front-left-chest,
-.front-right-chest,
-.front-left-shoulder,
-.front-right-shoulder {
-  width: 60px;
-}
-
-.front-center,
-.back-center {
-  width: 150px;
-  height: 150px;
-}
-
-.summary {
-  max-width: 760px;
-  margin: 18px auto 0;
-  padding-top: 16px;
-  border-top: 3px solid #333;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.summary-card {
-  background: #e4e4e4;
-  border-radius: 12px;
-  min-height: 120px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 14px 12px;
-}
-
-.summary-card-sale {
-  background: var(--accent);
-}
-
-.summary-card-label {
-  font-size: 15px;
-  font-weight: 700;
-  color: #666;
-  margin-bottom: 6px;
-  text-align: center;
-}
-
-.summary-card-value {
-  font-size: 52px;
-  line-height: 1;
-  font-weight: 900;
-}
-
-.detail-box {
-  margin: 18px auto 0;
-  background: #fff;
-  border: 2px solid #d7d7d7;
-  padding: 18px;
-  font-size: 16px;
-  line-height: 1.9;
-  max-width: 860px;
-}
-
-.detail-box strong {
-  display: inline-block;
-  min-width: 160px;
-}
-
-.note {
-  margin-top: 10px;
-  font-size: 13px;
-  color: #666;
-}
-
-.cost-note {
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #ddd;
-  font-size: 15px;
-  font-weight: 700;
-  color: #666;
-}
-
-.cost-note span {
-  color: #111;
-  font-weight: 900;
-}
-
-.mockup-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-  margin-bottom: 24px;
-}
-
-.mast-image {
-  display: block;
-  width: 78%;
-  max-width: 1000px;
-  height: auto;
-  margin: 0 auto;
-  border-radius: 6px;
-}
-
-.accordion-card {
-  margin-bottom: 12px;
-}
-
-.accordion-header {
-  width: 100%;
-  border: none;
-  background: #e2e2e2;
-  padding: 18px 22px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  cursor: pointer;
-  text-align: left;
-}
-
-.accordion-arrow {
-  font-size: 34px;
-  color: #787878;
-  line-height: 1;
-  width: 28px;
-  text-align: center;
-}
-
-.accordion-title {
-  font-size: 28px;
-  font-weight: 900;
-}
-
-.accordion-body {
-  display: none;
-  padding: 20px 0 14px;
-}
-
-.accordion-card.is-open .accordion-body {
-  display: block;
-}
-
-.manual-layout {
-  max-width: 860px;
-  padding-top: 18px;
-}
-
-.manual-section {
-  margin-bottom: 28px;
-}
-
-.manual-heading {
-  margin: 0 0 18px;
-  font-size: 28px;
-  font-weight: 900;
-  padding-bottom: 8px;
-  border-bottom: 3px solid var(--line-strong);
-}
-
-.manual-list {
-  display: grid;
-  gap: 10px;
-}
-
-.manual-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-  color: #222;
-  padding: 10px 0;
-  font-size: 20px;
-}
-
-.manual-item:hover {
-  opacity: 0.7;
-}
-
-.manual-icon {
-  width: 40px;
-  text-align: center;
-  font-size: 30px;
-}
-
-.ai-container {
-  max-width: 860px;
-  margin: 0 auto;
-}
-
-.ai-header {
-  margin-bottom: 18px;
-}
-
-.ai-title {
-  margin: 0 0 8px;
-  font-size: 30px;
-  font-weight: 900;
-}
-
-.ai-description,
-.ai-note {
-  color: #666;
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.chat-log {
-  min-height: 320px;
-  background: #fff;
-  border: 2px solid #d7d7d7;
-  border-radius: 16px;
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.user-msg,
-.ai-msg {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.user-msg {
-  align-items: flex-end;
-}
-
-.ai-msg {
-  align-items: flex-start;
-}
-
-.msg-label {
-  font-size: 12px;
-  font-weight: 800;
-  color: #888;
-}
-
-.msg-bubble {
-  max-width: 85%;
-  border-radius: 16px;
-  padding: 12px 14px;
-  line-height: 1.7;
-  font-size: 15px;
-  white-space: pre-wrap;
-}
-
-.user-msg .msg-bubble {
-  background: #111;
-  color: #fff;
-}
-
-.ai-msg .msg-bubble {
-  background: #efefef;
-  color: #111;
-}
-
-.quick-questions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 18px 0 14px;
-}
-
-.quick-question {
-  border: 1px solid #cfcfcf;
-  background: #fff;
-  border-radius: 999px;
-  padding: 10px 14px;
-  cursor: pointer;
-}
-
-.chat-input-area {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.chat-textarea {
-  min-height: 88px;
-  border: 2px solid #c8c8c8;
-  border-radius: 12px;
-  padding: 12px 14px;
-  font-size: 16px;
-  line-height: 1.7;
-  background: #fff;
-  width: 100%;
-  resize: vertical;
-  outline: none;
-}
-
-.chat-textarea:focus {
-  border-color: #111;
-}
-
-.chat-send-button {
-  height: 52px;
-  padding: 0 20px;
-  border: 2px solid #111;
-  background: #fff;
-  border-radius: 12px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.access-denied {
-  padding: 40px;
-  font-size: 28px;
-  font-weight: 700;
-  text-align: center;
-  background: #f3f3f3;
-  min-height: 100vh;
-}
-
-.is-hidden {
-  display: none !important;
-}
-
-
-
-
-.design-guide-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.design-guide-hero {
-  
-  border-radius: 20px;
-  padding: 28px;
-}
-
-.design-guide-eyebrow {
-  margin: 0 0 10px;
-  color: #8a8a8a;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-}
-
-.design-guide-title {
-  margin: 0 0 12px;
-  font-size: 34px;
-  line-height: 1.35;
-  font-weight: 900;
-}
-
-.design-guide-lead {
-  margin: 0;
-  color: #555;
-  font-size: 15px;
-  line-height: 1.9;
-}
-
-.design-subtabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
-}
-
-.design-subtab {
-  border: none;
-  background: transparent;
-  padding: 10px 0;
-  font-size: 15px;
-  font-weight: 700;
-  color: #8a8a8a;
-  border-bottom: 3px solid transparent;
-  cursor: pointer;
-}
-
-.design-subtab.is-active {
-  color: #111;
-  border-bottom-color: #111;
-}
-
-.design-guide-content {
-  width: 100%;
-}
-
-.guide-panel {
-  display: none;
-}
-
-.guide-panel.is-active {
-  display: block;
-}
-
-.guide-panel h2 {
-  margin: 0 0 16px;
-  font-size: 30px;
-  font-weight: 900;
-}
-
-.guide-card {
-  background: #fff;
-  border: 2px solid #d7d7d7;
-  border-radius: 20px;
-  padding: 24px;
-}
-
-.guide-card p,
-.guide-card li {
-  font-size: 15px;
-  line-height: 1.9;
-  color: #333;
-}
-
-.guide-card ul {
-  margin: 14px 0 0 20px;
-  padding: 0;
-}
-
-.guide-image {
-  display: block;
-  width: 100%;
-  max-width: 640px;
-  height: auto;
-  border-radius: 14px;
-  margin: 18px 0 0;
-}
-
-.guide-tip {
-  margin-top: 18px;
-  padding: 14px 16px;
-  border-radius: 14px;
-  background: #f4f4f4;
-  color: #444;
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-.command-palette {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.25);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 120px;
-  z-index: 9999;
-}
-
-.command-palette.hidden {
-  display: none;
-}
-
-.command-box {
-  width: 520px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-  overflow: hidden;
-}
-
-#commandInput {
-  width: 100%;
-  border: none;
-  outline: none;
-  font-size: 18px;
-  padding: 18px 22px;
-  border-bottom: 1px solid #eee;
-}
-
-.command-results {
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.command-item {
-  padding: 14px 22px;
-  cursor: pointer;
-}
-
-.command-item:hover,
-.command-item.active {
-  background: #f5f5f5;
-}
-
-.command-label {
-  font-size: 12px;
-  color: #888;
-}
-
-.command-title {
-  font-size: 15px;
-  font-weight: 600;
-}
-.gaideline{
-  width: 50%;
-}
-
-
-
-/* =========================
-   ボディサイズ
-========================= */
-.body-size-page {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 28px 36px 80px;
-}
-
-.body-size-group {
-  margin-bottom: 72px;
-}
-
-.body-size-main-title {
-  font-size: 40px;
-  font-weight: 900;
-  line-height: 1;
-  margin: 0 0 34px;
-  letter-spacing: 0.04em;
-}
-
-.body-size-main-title::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 50px;
-  background: #111;
-  margin-right: 18px;
-  vertical-align: -8px;
-}
-
-.body-size-table-wrap {
-  width: 100%;
-  margin-bottom: 48px;
-}
-
-.body-size-table-image {
-  display: block;
-  width: 100%;
-  max-width: 1120px;
-  height: auto;
-}
-
-.body-size-category {
-  margin-top: 54px;
-}
-
-.body-size-category-title {
-  text-align: center;
-  font-size: 42px;
-  font-weight: 900;
-  margin: 0 0 24px;
-  padding-bottom: 10px;
-  border-bottom: 4px solid #111;
-  letter-spacing: 0.08em;
-}
-
-.body-size-item {
-  margin-bottom: 40px;
-}
-
-.body-size-item-title {
-  font-size: 28px;
-  font-weight: 900;
-  margin: 0 0 10px;
-  letter-spacing: 0.04em;
-  line-height: 1.4;
-}
-
-.body-size-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 320px);
-  justify-content: center;
-  gap: 28px;
-}
-
-.preview-card {
-  position: relative;
-  display: block;
-  width: 320px;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  border: 3px solid #111;
-  border-radius: 24px;
-  background: #fff;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.preview-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.25s ease, filter 0.25s ease;
-}
-
-.preview-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0);
-  transition: background 0.25s ease;
-}
-
-.preview-label {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 2;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-.preview-card:hover::after {
-  background: rgba(0, 0, 0, 0.42);
-}
-
-.preview-card:hover img {
-  filter: brightness(0.78);
-  transform: scale(1.02);
-}
-
-.preview-card:hover .preview-label {
-  opacity: 1;
-}
-
-/* =========================
-   画像モーダル
-========================= */
-.image-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.72);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-}
-
-.image-modal.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.modal-image-wrap {
-  width: min(88vw, 1100px);
-  height: min(84vh, 820px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.image-modal img {
-  max-width: 100%;
-  max-height: 100%;
-  display: block;
-  border-radius: 18px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-  background: #fff;
-}
-
-.modal-close {
-  position: absolute;
-  top: 20px;
-  right: 28px;
-  width: 56px;
-  height: 56px;
-  border: none;
-  background: transparent;
-  color: #fff;
-  font-size: 44px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.modal-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 64px;
-  height: 64px;
-  border: none;
-  background: transparent;
-  color: #fff;
-  font-size: 72px;
-  line-height: 1;
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-.modal-arrow:hover {
-  opacity: 1;
-}
-
-.modal-arrow.left {
-  left: 28px;
-}
-
-.modal-arrow.right {
-  right: 28px;
-}
-
-
-
-
-.modal-image-name {
-  position: absolute;
-  right: 24px;
-  bottom: 20px;
-  max-width: min(60vw, 520px);
-  padding: 10px 14px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.58);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.4;
-  text-align: right;
-  word-break: break-all;
-}
-
-@media (max-width: 900px) {
-  .modal-image-name {
-    right: 14px;
-    bottom: 14px;
-    max-width: calc(100vw - 28px);
-    font-size: 12px;
-    padding: 8px 10px;
+document.getElementById("app").style.display = "block";
+
+const bodyMaster = [
+  { id: "dry-shirt", name: "選択してください", price: 0 },
+  { id: "dry-shirt", name: "ドライシャツ", price: 280 },
+  { id: "cotton-shirt", name: "コットンTシャツ", price: 415 },
+  { id: "long-sleeve", name: "ドライロンT", price: 400 },
+  { id: "long-sleeve", name: "コットンロンT", price: 560 },
+  { id: "polo", name: "ドライポロ", price: 510 },
+  { id: "polo", name: "ポケット付きドライポロ", price: 510 },
+  { id: "polo", name: "コットン風ポロ", price: 785 },
+  { id: "polo", name: "圧着ホッケー", price: 625 },
+  { id: "polo", name: "圧着野球（ストライプなし）", price: 800 },
+  { id: "polo", name: "圧着野球（ストライプあり）", price: 1010 },
+  { id: "polo", name: "スウェット", price: 940 },
+  { id: "polo", name: "パーカー", price: 1270 },
+  { id: "polo", name: "ジップパーカー", price: 1515 },
+  { id: "polo", name: "6.2オンス プレミアム Tシャツ", price: 620 }
+];
+
+const sleeveOptions = [
+  { id: "none", label: "なし", price: 0 },
+  { id: "sleeve-1-normal", label: "通常カラー", price: 200 },
+  { id: "sleeve-1-lame", label: "ラメカラー", price: 400 }
+];
+
+const chestOptions = [
+  { id: "none", label: "なし", price: 0 },
+  { id: "chest-1-normal", label: "通常カラー", price: 200 },
+  { id: "chest-1-lame", label: "ラメカラー", price: 400 }
+];
+
+const bigDesignOptions = [
+  { id: "none", label: "なし", price: 0 },
+  { id: "big-name-number", label: "背ネーム背番号", price: 300 },
+  { id: "big-name-number-lame", label: "背ネーム背番号（ラメ）", price: 600 },
+  { id: "big-4-normal", label: "④（24cm×30cm）", price: 300 },
+  { id: "big-4-lame", label: "④（ラメ）", price: 600 },
+  { id: "big-5-normal", label: "⑤（30cm×40cm）", price: 500 },
+  { id: "big-5-lame", label: "⑤（ラメ）", price: 800 }
+];
+
+const faqData = [
+  {
+    keywords: ["昇華"],
+    answer: "昇華とはタイの工場で外注している商品のことです。\nTシャツの"
+  },
+  {
+    keywords: ["圧着"],
+    answer: "圧着とは弊社事務所でDTF印刷をする商品・作業のことを指します。\nDTFとは事務所奥の部屋の大きなプリンターで刷っている印刷物のことです。\nこれを圧着機と呼ばれる機械で熱と圧で貼り付けるためこのように呼んでいます。"
+  },
+  {
+    keywords: ["O", "o", "XL", "2L"],
+    answer: "XLのことです。"
+  },
+  {
+    keywords: ["XO", "xo", "XXL", "3L"],
+    answer: "2XLのことです。"
+  },
+  {
+    keywords: ["2XO", "2xo", "XXXL", "4L"],
+    answer: "3XLのことです。"
+  },
+  {
+    keywords: ["3XO", "3xo", "XXXXL", "5L"],
+    answer: "4XLのことです。"
+  },
+  {
+    keywords: ["マスト"],
+    answer: "マストとはその商品をいつまでに発注していなければならいないのかの日付です。\n月ごとのアコーディオンを開いて最新画像を確認してください。"
+  },
+  {
+    keywords: ["クレーム", "電話", "謝罪", "対応"],
+    answer: "クレーム・電話対応は『電話』カテゴリのマニュアル確認がおすすめです。\nクレーム対応マニュアル.pdfも開けます。"
+  },
+  {
+    keywords: ["新規", "初回", "最初", "初めて"],
+    answer: "新規対応は『新規』カテゴリのマニュアルを確認してください。"
+  },
+  {
+    keywords: ["電話番号", "住所"],
+    answer: "電話番号：03-5347-0233\n住所：〒166-0004\n東京都杉並区阿佐谷南3-48-12"
+  },
+  {
+    keywords: ["リオーダー", "りおーだー"],
+    answer: "すでにご注文済みのお客様による、同じデザインの再注文のことです。異なるデザインをご希望の場合はリオーダーに含まれません。"
+  }
+];
+
+function getShippingCost() {
+  return 3000;
+}
+
+const bodySelect = document.getElementById("bodySelect");
+const quantityInput = document.getElementById("quantityInput");
+const printSelects = document.querySelectorAll(".print-select");
+
+const costPriceEl = document.getElementById("costPrice");
+const salePriceEl = document.getElementById("salePrice");
+const minPriceEl = document.getElementById("minPrice");
+
+const detailBodyEl = document.getElementById("detailBody");
+const detailPrintEl = document.getElementById("detailPrint");
+const detailShippingEl = document.getElementById("detailShipping");
+const resetBtn = document.getElementById("resetBtn");
+
+const tabButtons = document.querySelectorAll(".tab-button");
+const screens = {
+  calculator: document.getElementById("screen-calculator"),
+  "body-size": document.getElementById("screen-body-size"),
+  mast: document.getElementById("screen-mast"),
+  delivery: document.getElementById("screen-delivery"),
+  manual: document.getElementById("screen-manual"),
+  ai: document.getElementById("screen-ai"),
+  designGuide: document.getElementById("screen-designGuide")
+};
+
+const manualSearch = document.getElementById("manualSearch");
+const globalSearchResults = document.getElementById("globalSearchResults");
+const manualSections = document.querySelectorAll("[data-manual-section]");
+const manualItems = document.querySelectorAll(".manual-item");
+const accordionCards = document.querySelectorAll("[data-accordion]");
+const designSubtabs = document.querySelectorAll(".design-subtab");
+const guidePanels = document.querySelectorAll(".guide-panel");
+
+const chatInput = document.getElementById("chat-input");
+const chatSendButton = document.getElementById("chat-send-button");
+const chatLog = document.getElementById("chat-log");
+const quickQuestions = document.querySelectorAll(".quick-question");
+
+const palette = document.getElementById("commandPalette");
+const input = document.getElementById("commandInput");
+const resultsBox = document.getElementById("commandResults");
+
+function initBodyOptions() {
+  if (!bodySelect) return;
+  bodySelect.innerHTML = "";
+  bodyMaster.forEach((body) => {
+    const option = document.createElement("option");
+    option.value = body.id;
+    option.textContent = body.name;
+    bodySelect.appendChild(option);
+  });
+}
+
+function getOptionsByType(type) {
+  if (type === "sleeve") return sleeveOptions;
+  if (type === "chest") return chestOptions;
+  if (type === "big") return bigDesignOptions;
+  return [{ id: "none", label: "なし", price: 0 }];
+}
+
+function initPrintOptions() {
+  printSelects.forEach((select) => {
+    const type = select.dataset.type;
+    const options = getOptionsByType(type);
+    select.innerHTML = "";
+
+    options.forEach((item) => {
+      const option = document.createElement("option");
+      option.value = item.id;
+      option.textContent = item.label;
+      option.dataset.price = item.price;
+      select.appendChild(option);
+    });
+
+    select.value = "none";
+  });
+}
+
+function getSelectedBody() {
+  if (!bodySelect) return null;
+  return bodyMaster[bodySelect.selectedIndex] || null;
+}
+
+function getSelectedPrintTotalPerPiece() {
+  let total = 0;
+  printSelects.forEach((select) => {
+    const selectedOption = select.options[select.selectedIndex];
+    const price = Number(selectedOption?.dataset.price || 0);
+    total += price;
+  });
+  return total;
+}
+
+function formatNumber(value) {
+  return Math.round(value).toLocaleString("ja-JP");
+}
+
+function resetPrices() {
+  if (costPriceEl) costPriceEl.textContent = "¥0";
+  if (salePriceEl) salePriceEl.textContent = "¥0";
+  if (minPriceEl) minPriceEl.textContent = "¥0";
+  if (detailBodyEl) detailBodyEl.textContent = "0円";
+  if (detailPrintEl) detailPrintEl.textContent = "0円";
+  if (detailShippingEl) detailShippingEl.textContent = "0円";
+}
+
+function calculatePrice() {
+  const body = getSelectedBody();
+  const quantity = Number(quantityInput?.value) || 0;
+
+  if (!body || quantity <= 0) {
+    resetPrices();
+    return;
+  }
+
+  const bodyPrice = Number(body.price) || 0;
+  const printPricePerPiece = getSelectedPrintTotalPerPiece();
+  const shipping = getShippingCost();
+
+  const costPerPiece = ((((bodyPrice + printPricePerPiece) * quantity) + shipping) * 1.1) / quantity;
+  const salePrice = costPerPiece + 1000;
+  const minPrice = costPerPiece + 500;
+
+  if (costPriceEl) costPriceEl.textContent = `¥${formatNumber(costPerPiece)}`;
+  if (salePriceEl) salePriceEl.textContent = `¥${formatNumber(salePrice)}`;
+  if (minPriceEl) minPriceEl.textContent = `¥${formatNumber(minPrice)}`;
+  if (detailBodyEl) detailBodyEl.textContent = `${formatNumber(bodyPrice)}円`;
+  if (detailPrintEl) detailPrintEl.textContent = `${formatNumber(printPricePerPiece)}円`;
+  if (detailShippingEl) detailShippingEl.textContent = `${formatNumber(shipping)}円`;
+}
+
+function switchTab(tabName) {
+  tabButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.tab === tabName);
+  });
+
+  Object.entries(screens).forEach(([name, screen]) => {
+    if (screen) {
+      screen.classList.toggle("is-active", name === tabName);
+    }
+  });
+
+  if (manualSearch) {
+    manualSearch.placeholder = "全体検索";
   }
 }
 
+function filterManual(keyword) {
+  const searchText = keyword.trim().toLowerCase();
+
+  manualSections.forEach((section) => {
+    const items = section.querySelectorAll(".manual-item");
+    let visibleCount = 0;
+
+    items.forEach((item) => {
+      const title = (item.dataset.title || item.textContent).toLowerCase();
+      const matched = !searchText || title.includes(searchText);
+      item.classList.toggle("is-hidden", !matched);
+      if (matched) visibleCount += 1;
+    });
+
+    section.classList.toggle("is-hidden", visibleCount === 0);
+  });
+}
+
+function clearManualFilter() {
+  filterManual("");
+}
+
+function activateGuideTab(target) {
+  designSubtabs.forEach((btn) => {
+    btn.classList.toggle("is-active", btn.dataset.guide === target);
+  });
+
+  guidePanels.forEach((panel) => {
+    panel.classList.toggle("is-active", panel.id === `guide-${target}`);
+  });
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function getSearchEntries() {
+  const entries = [
+    {
+      type: "tab",
+      tab: "calculator",
+      label: "メインタブ",
+      title: "圧着計算",
+      keywords: ["圧着計算", "売価", "価格", "最低価格", "輸送コスト", "ボディ代", "印刷代", "計算"],
+      preview: "ボディ代・印刷代・輸送コストから通常売価と最低価格を計算できます。"
+    },
+    {
+      type: "tab",
+      tab: "body-size",
+      label: "メインタブ",
+      title: "ボディサイズ",
+      keywords: ["ボディサイズ", "サイズ", "寸法", "昇華", "圧着サイズ表"],
+      preview: "昇華サイズ表と圧着サイズ表をまとめて確認できます。"
+    },
+    {
+      type: "tab",
+      tab: "mast",
+      label: "メインタブ",
+      title: "マスト",
+      keywords: ["マスト", "must", "月", "予定", "今月"],
+      preview: "月ごとのマスト画像をアコーディオン形式で確認できます。"
+    },
+    {
+      type: "tab",
+      tab: "delivery",
+      label: "メインタブ",
+      title: "お届け日",
+      keywords: ["お届け日", "配送", "発送", "到着", "マップ"],
+      preview: "地域別のお届け目安を地図で確認できます。"
+    },
+    {
+      type: "tab",
+      tab: "manual",
+      label: "メインタブ",
+      title: "マニュアル",
+      keywords: ["マニュアル", "PDF", "手順", "クレーム", "新規", "圧着", "発送", "電話"],
+      preview: "カテゴリごとにPDFマニュアルを探せます。"
+    },
+    {
+      type: "tab",
+      tab: "ai",
+      label: "メインタブ",
+      title: "単語検索",
+      keywords: ["単語検索", "AI", "意味", "用語", "リオーダー", "圧着"],
+      preview: "登録キーワードに一致した単語の意味を確認できます。"
+    },
+    {
+      type: "tab",
+      tab: "designGuide",
+      label: "メインタブ",
+      title: "デザインガイドライン",
+      keywords: ["デザインガイドライン", "カラー", "背ネーム", "グリッター", "細かいデザイン"],
+      preview: "持ち込みデザインの可否や案内ポイントを確認できます。"
+    }
+  ];
+
+  manualItems.forEach((item) => {
+    const section = item.closest("[data-manual-section]");
+    const sectionTitle = section?.querySelector(".manual-heading")?.textContent?.trim() || "マニュアル";
+    const title = item.dataset.title || item.textContent.trim();
+    entries.push({
+      type: "manual-item",
+      tab: "manual",
+      label: `マニュアル / ${sectionTitle}`,
+      title,
+      keywords: [sectionTitle, title, item.textContent.trim()],
+      preview: `${sectionTitle}カテゴリの資料です。`
+    });
+  });
+
+  designSubtabs.forEach((tab) => {
+    const guide = tab.dataset.guide;
+    const panel = document.getElementById(`guide-${guide}`);
+    entries.push({
+      type: "design-guide",
+      tab: "designGuide",
+      label: "デザインガイドライン",
+      title: tab.textContent.trim(),
+      keywords: [tab.textContent.trim(), panel?.textContent?.trim() || ""],
+      preview: panel?.querySelector("p")?.textContent?.trim() || "",
+      guide
+    });
+  });
+
+  faqData.forEach((item) => {
+    entries.push({
+      type: "faq",
+      tab: "ai",
+      label: "単語検索 / FAQ",
+      title: item.keywords[0],
+      keywords: item.keywords,
+      preview: item.answer,
+      question: `${item.keywords[0]}って何？`
+    });
+  });
+
+  accordionCards.forEach((card) => {
+    const month = card.querySelector(".accordion-title")?.textContent?.trim();
+    if (!month) return;
+    entries.push({
+      type: "mast-month",
+      tab: "mast",
+      label: "マスト",
+      title: `${month}のマスト`,
+      keywords: [month, `${month}のマスト`, "マスト"],
+      preview: `${month}のマスト画像を開きます。`,
+      month
+    });
+  });
+
+  return entries;
+}
+
+function scoreSearchEntry(entry, query) {
+  const values = [entry.title, entry.label, entry.preview, ...(Array.isArray(entry.keywords) ? entry.keywords : [entry.keywords])]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  if (!values.includes(query)) return 0;
+
+  let score = 1;
+  if ((entry.title || "").toLowerCase().includes(query)) score += 5;
+  if ((entry.label || "").toLowerCase().includes(query)) score += 2;
+  const keywords = Array.isArray(entry.keywords) ? entry.keywords : [entry.keywords];
+  if (keywords.some((keyword) => String(keyword).toLowerCase().includes(query))) score += 3;
+  return score;
+}
+
+function getSearchMatches(query) {
+  return getSearchEntries()
+    .map((entry) => ({ entry, score: scoreSearchEntry(entry, query) }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 12);
+}
+
+function closeSearchResults() {
+  if (!globalSearchResults) return;
+  globalSearchResults.innerHTML = "";
+  globalSearchResults.hidden = true;
+}
+
+function highlightElement(element) {
+  if (!element) return;
+  element.classList.add("search-hit");
+  element.scrollIntoView({ behavior: "smooth", block: "center" });
+  window.setTimeout(() => {
+    element.classList.remove("search-hit");
+  }, 1800);
+}
+
+function openSearchResult(selected) {
+  if (!selected) return;
+
+  switchTab(selected.tab);
+
+  if (selected.type === "design-guide" && selected.guide) {
+    activateGuideTab(selected.guide);
+    highlightElement(document.getElementById(`guide-${selected.guide}`));
+  } else if (selected.type === "manual-item") {
+    clearManualFilter();
+    const targetItem = Array.from(manualItems).find((item) => (item.dataset.title || item.textContent.trim()) === selected.title);
+    highlightElement(targetItem);
+  } else if (selected.type === "mast-month" && selected.month) {
+    const targetCard = Array.from(accordionCards).find((card) => card.querySelector(".accordion-title")?.textContent?.trim() === selected.month);
+    if (targetCard && !targetCard.classList.contains("is-open")) {
+      toggleAccordion(targetCard);
+    }
+    highlightElement(targetCard);
+  } else if (selected.type === "faq") {
+    if (chatInput) {
+      chatInput.value = selected.question || "";
+    }
+    highlightElement(document.querySelector(".ai-container"));
+  } else {
+    highlightElement(screens[selected.tab]);
+  }
+
+  closeSearchResults();
+}
+
+function renderGlobalSearchResults(keyword) {
+  if (!globalSearchResults) return;
+
+  const query = keyword.trim().toLowerCase();
+  if (!query) {
+    closeSearchResults();
+    return;
+  }
+
+  const matches = getSearchMatches(query);
+
+  if (!matches.length) {
+    globalSearchResults.innerHTML = `<div class="global-search-empty">一致する結果がありません</div>`;
+    globalSearchResults.hidden = false;
+    return;
+  }
+
+  globalSearchResults.innerHTML = matches.map(({ entry }, index) => {
+    const preview = entry.preview ? escapeHtml(entry.preview).slice(0, 90) : "";
+    return `
+      <button type="button" class="global-search-item" data-result-index="${index}">
+        <span class="global-search-label">${escapeHtml(entry.label)}</span>
+        <strong class="global-search-title">${escapeHtml(entry.title)}</strong>
+        ${preview ? `<span class="global-search-preview">${preview}</span>` : ""}
+      </button>
+    `;
+  }).join("");
+  globalSearchResults.hidden = false;
+
+  globalSearchResults.querySelectorAll("[data-result-index]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const selected = matches[Number(button.dataset.resultIndex)]?.entry;
+      openSearchResult(selected);
+    });
+  });
+}
+
+function toggleAccordion(card) {
+  const isOpen = card.classList.contains("is-open");
+  card.classList.toggle("is-open", !isOpen);
+  const arrow = card.querySelector(".accordion-arrow");
+  if (arrow) arrow.textContent = !isOpen ? "⌄" : "›";
+}
+
+function appendMessage(role, text) {
+  if (!chatLog) return;
+
+  const wrapper = document.createElement("div");
+  wrapper.className = role === "user" ? "user-msg" : "ai-msg";
+
+  const label = document.createElement("div");
+  label.className = "msg-label";
+  label.textContent = role === "user" ? "YOU" : "AI";
+
+  const bubble = document.createElement("div");
+  bubble.className = "msg-bubble";
+  bubble.textContent = text;
+
+  wrapper.appendChild(label);
+  wrapper.appendChild(bubble);
+  chatLog.appendChild(wrapper);
+  chatLog.scrollTop = chatLog.scrollHeight;
+}
+
+function findBestAnswer(question) {
+  const normalizedQuestion = question.trim().toLowerCase();
+  let bestMatch = null;
+  let bestScore = 0;
+
+  faqData.forEach((item) => {
+    const score = item.keywords.filter((keyword) =>
+      normalizedQuestion.includes(keyword.toLowerCase())
+    ).length;
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = item;
+    }
+  });
+
+  if (bestMatch && bestScore > 0) {
+    return bestMatch.answer;
+  }
+
+  return "一致する登録回答が見つかりませんでした。\n言い方を変えて再度検索してみてください。\n登録作業をするので金井に声をかけてください";
+}
+
+function sendQuestion() {
+  if (!chatInput) return;
+
+  const question = chatInput.value.trim();
+  if (!question) return;
+
+  appendMessage("user", question);
+  const answer = findBestAnswer(question);
+  appendMessage("ai", answer);
+  chatInput.value = "";
+}
+
+function initCommandPalette() {
+  if (!palette || !input || !resultsBox) return;
+
+  const commandIndex = [
+    {
+      label: "メインタブ",
+      title: "圧着計算",
+      keywords: ["圧着計算", "売価", "価格"],
+      action: () => switchTab("calculator")
+    },
+    {
+      label: "メインタブ",
+      title: "ボディサイズ",
+      keywords: ["ボディサイズ", "サイズ", "寸法"],
+      action: () => switchTab("body-size")
+    },
+    {
+      label: "メインタブ",
+      title: "マスト",
+      keywords: ["マスト", "must"],
+      action: () => switchTab("mast")
+    },
+    {
+      label: "メインタブ",
+      title: "お届け日",
+      keywords: ["お届け日", "配送", "発送"],
+      action: () => switchTab("delivery")
+    },
+    {
+      label: "メインタブ",
+      title: "マニュアル",
+      keywords: ["マニュアル", "pdf"],
+      action: () => switchTab("manual")
+    },
+    {
+      label: "メインタブ",
+      title: "単語検索",
+      keywords: ["単語検索", "ai", "用語"],
+      action: () => switchTab("ai")
+    },
+    {
+      label: "メインタブ",
+      title: "デザインガイドライン",
+      keywords: ["デザイン", "ガイドライン"],
+      action: () => switchTab("designGuide")
+    }
+  ];
+
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      palette.classList.toggle("hidden");
+      if (!palette.classList.contains("hidden")) {
+        input.focus();
+      }
+    }
+
+    if (e.key === "Escape") {
+      palette.classList.add("hidden");
+    }
+  });
+
+  input.addEventListener("input", () => {
+    const q = input.value.toLowerCase().trim();
+
+    const hits = !q
+      ? commandIndex
+      : commandIndex.filter((item) =>
+          item.title.toLowerCase().includes(q) ||
+          item.keywords.some((keyword) => String(keyword).toLowerCase().includes(q))
+        );
+
+    resultsBox.innerHTML = hits.map((item, i) => `
+      <div class="command-item" data-index="${i}">
+        <div class="command-label">${item.label}</div>
+        <div class="command-title">${item.title}</div>
+      </div>
+    `).join("");
+
+    resultsBox.querySelectorAll(".command-item").forEach((el) => {
+      el.addEventListener("click", () => {
+        hits[Number(el.dataset.index)].action();
+        palette.classList.add("hidden");
+      });
+    });
+  });
+}
+
+function initImagePreview() {
+  const previewCards = Array.from(document.querySelectorAll(".preview-card"));
+  const modal = document.getElementById("image-modal");
+  const modalImage = document.getElementById("modal-image");
+  const modalImageName = document.getElementById("modal-image-name");
+  const closeBtn = document.querySelector(".modal-close");
+  const leftArrow = document.querySelector(".modal-arrow.left");
+  const rightArrow = document.querySelector(".modal-arrow.right");
+
+  if (!previewCards.length || !modal || !modalImage || !modalImageName) return;
+
+  const images = previewCards
+    .map(function (card) {
+      return card.dataset.image;
+    })
+    .filter(function (path) {
+      return !!path;
+    });
+
+  let currentIndex = 0;
+
+  function getImageName(path) {
+    if (!path) return "";
+    const fileName = path.split("/").pop() || "";
+    return decodeURIComponent(fileName);
+  }
+
+  function showImage(index) {
+    if (!images.length) return;
+    currentIndex = (index + images.length) % images.length;
+    modalImage.src = images[currentIndex];
+    modalImageName.textContent = getImageName(images[currentIndex]);
+  }
+
+  function closeModal() {
+    modal.classList.remove("active");
+    modalImage.src = "";
+    modalImageName.textContent = "";
+    document.body.style.overflow = "";
+  }
+
+  previewCards.forEach(function (card) {
+    const imagePath = card.dataset.image;
+    if (!imagePath) return;
+
+    card.addEventListener("click", function () {
+      const index = images.indexOf(imagePath);
+      showImage(index);
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeModal);
+  }
+
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  if (leftArrow) {
+    leftArrow.addEventListener("click", function (e) {
+      e.stopPropagation();
+      showImage(currentIndex - 1);
+    });
+  }
+
+  if (rightArrow) {
+    rightArrow.addEventListener("click", function (e) {
+      e.stopPropagation();
+      showImage(currentIndex + 1);
+    });
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (!modal.classList.contains("active")) return;
+
+    if (e.key === "Escape") {
+      closeModal();
+    }
+
+    if (e.key === "ArrowLeft") {
+      showImage(currentIndex - 1);
+    }
+
+    if (e.key === "ArrowRight") {
+      showImage(currentIndex + 1);
+    }
+  });
+}
+
+if (bodySelect) {
+  bodySelect.addEventListener("change", calculatePrice);
+}
+
+if (quantityInput) {
+  quantityInput.addEventListener("input", calculatePrice);
+}
+
+printSelects.forEach((select) => {
+  select.addEventListener("change", calculatePrice);
+});
+
+if (resetBtn) {
+  resetBtn.addEventListener("click", () => {
+    if (bodySelect) bodySelect.selectedIndex = 0;
+    if (quantityInput) quantityInput.value = 0;
+    printSelects.forEach((select) => {
+      select.value = "none";
+    });
+    calculatePrice();
+  });
+}
+
+tabButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    switchTab(button.dataset.tab);
+  });
+});
+
+document.addEventListener("click", (event) => {
+  const clickedInsideSearch = event.target.closest(".search-box");
+  if (!clickedInsideSearch) {
+    closeSearchResults();
+  }
+});
+
+if (manualSearch) {
+  manualSearch.addEventListener("input", (event) => {
+    renderGlobalSearchResults(event.target.value);
+  });
+
+  manualSearch.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeSearchResults();
+    }
+  });
+}
+
+manualItems.forEach((item) => {
+  item.addEventListener("click", (event) => {
+    const href = item.getAttribute("href");
+    if (!href || href === "#") {
+      event.preventDefault();
+      alert("ここにPDFのリンクを設定すると開けます。");
+    }
+  });
+});
+
+accordionCards.forEach((card) => {
+  const header = card.querySelector(".accordion-header");
+  if (header) {
+    header.addEventListener("click", () => {
+      toggleAccordion(card);
+    });
+  }
+});
+
+if (chatSendButton) {
+  chatSendButton.addEventListener("click", sendQuestion);
+}
+
+if (chatInput) {
+  chatInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      sendQuestion();
+    }
+  });
+}
+
+quickQuestions.forEach((button) => {
+  button.addEventListener("click", () => {
+    if (chatInput) {
+      chatInput.value = button.dataset.question || "";
+    }
+    sendQuestion();
+  });
+});
+
+initBodyOptions();
+initPrintOptions();
+
+if (bodySelect) {
+  bodySelect.selectedIndex = 0;
+}
+
+if (quantityInput) {
+  quantityInput.value = 0;
+}
+
+calculatePrice();
+switchTab("calculator");
+
+designSubtabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    activateGuideTab(tab.dataset.guide);
+  });
+});
+
+initCommandPalette();
+initImagePreview();
