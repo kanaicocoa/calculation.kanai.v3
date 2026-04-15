@@ -33,7 +33,7 @@ const bigDesignOptions = [
   { id: "big-name-number", label: "背ネーム背番号", price: 300 },
   { id: "big-4-normal", label: "④（24cm×30cm）", price: 300 },
   { id: "big-5-normal", label: "⑤（30cm×40cm）", price: 500 },
-  { id: "big-name-number-lame", label: "【ラメ】背ネーム背番号④⑤", price: 500 },
+  { id: "big-name-number-lame", label: "【ラメ】背ネーム背番号", price: 500 },
   { id: "big-4-lame", label: "【ラメ】④⑤", price: 600 }
 ];
 
