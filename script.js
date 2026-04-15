@@ -20,24 +20,21 @@ const bodyMaster = [
 
 const sleeveOptions = [
   { id: "none", label: "なし", price: 0 },
-  { id: "sleeve-1-normal", label: "通常カラー", price: 200 },
-  { id: "sleeve-1-lame", label: "ラメカラー", price: 400 }
+  { id: "sleeve-1-normal", label: "あり", price: 200 }
 ];
 
 const chestOptions = [
   { id: "none", label: "なし", price: 0 },
-  { id: "chest-1-normal", label: "通常カラー", price: 200 },
-  { id: "chest-1-lame", label: "ラメカラー", price: 400 }
+  { id: "chest-1-normal", label: "あり", price: 200 }
 ];
 
 const bigDesignOptions = [
   { id: "none", label: "なし", price: 0 },
   { id: "big-name-number", label: "背ネーム背番号", price: 300 },
-  { id: "big-name-number-lame", label: "背ネーム背番号（ラメ）", price: 600 },
   { id: "big-4-normal", label: "④（24cm×30cm）", price: 300 },
-  { id: "big-4-lame", label: "④（ラメ）", price: 600 },
   { id: "big-5-normal", label: "⑤（30cm×40cm）", price: 500 },
-  { id: "big-5-lame", label: "⑤（ラメ）", price: 800 }
+  { id: "big-name-number-lame", label: "【ラメ】背ネーム背番号④⑤", price: 500 },
+  { id: "big-4-lame", label: "【ラメ】④⑤", price: 600 }
 ];
 
 const faqData = [
