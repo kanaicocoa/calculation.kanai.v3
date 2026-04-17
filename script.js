@@ -52,22 +52,6 @@ const faqData = [
     answer: "DTFとは事務所奥の部屋の大きなプリンターで刷っている印刷物のことです。\nこれで出力したものを圧着します。"
   },
   {
-    keywords: ["O", "o", "XL", "2L"],
-    answer: "XLのことです。"
-  },
-  {
-    keywords: ["XO", "xo", "XXL", "3L"],
-    answer: "2XLのことです。"
-  },
-  {
-    keywords: ["2XO", "2xo", "XXXL", "4L"],
-    answer: "3XLのことです。"
-  },
-  {
-    keywords: ["3XO", "3xo", "XXXXL", "5L"],
-    answer: "4XLのことです。"
-  },
-  {
     keywords: ["マスト"],
     answer: "マストとはその商品をいつまでに発注していなければならいないのかの日付です。\n月ごとのアコーディオンを開いて最新画像を確認してください。"
   },
