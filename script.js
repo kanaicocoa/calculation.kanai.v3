@@ -12,6 +12,8 @@ const bodyMaster = [
   { id: "polo", name: "圧着ホッケー", price: 625 },
   { id: "polo", name: "圧着野球（ストライプなし）", price: 800 },
   { id: "polo", name: "圧着野球（ストライプあり）", price: 1010 },
+  { id: "polo", name: "圧着ビブス", price: 470 },
+  { id: "polo", name: "圧着バスケユニ（アスレ）", price: 680 },
   { id: "polo", name: "スウェット", price: 940 },
   { id: "polo", name: "パーカー", price: 1270 },
   { id: "polo", name: "ジップパーカー", price: 1515 },
@@ -34,7 +36,7 @@ const bigDesignOptions = [
   { id: "big-name-number", label: "背ネーム背番号", price: 300 },
   { id: "big-4-normal", label: "④（24cm×30cm）", price: 300 },
   { id: "big-5-normal", label: "⑤（30cm×40cm）", price: 500 },
-  { id: "big-name-number-lame", label: "【ラメ】背ネーム背番号", price: 500 },
+  { id: "big-name-number-lame", label: "【ラメ】背ネーム背番号④⑤", price: 500 },
   { id: "big-4-lame", label: "【ラメ】④⑤", price: 600 }
 ];
 
