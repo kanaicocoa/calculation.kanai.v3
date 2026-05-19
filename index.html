@@ -15,6 +15,7 @@
           <button class="tab-button" data-tab="body-size">ボディサイズ</button>
           <button class="tab-button" data-tab="mast">マスト</button>
           <button class="tab-button" data-tab="delivery">お届け日</button>
+          <button class="tab-button" data-tab="discount">早割計算</button>
         </nav>
       </div>
     </header>
@@ -331,6 +332,29 @@
       <section class="screen" id="screen-delivery">
         <div class="wide-screen-inner">
           <img src="image/map.png" alt="お届け日画面" class="mockup-image" />
+        </div>
+      </section>
+
+      <section class="screen" id="screen-discount">
+        <div class="screen-inner">
+          <h1 class="page-title">早割日付確認</h1>
+
+          <div class="discount-box">
+            <label class="discount-label" for="discountBaseDate">基準日</label>
+            <input type="date" id="discountBaseDate" class="discount-date-input" />
+
+            <div class="discount-result-area">
+              <div class="discount-card">
+                <div class="discount-card-title">早割（20日後）</div>
+                <div class="discount-card-date" id="earlyDiscountDate">-</div>
+              </div>
+
+              <div class="discount-card discount-card-super">
+                <div class="discount-card-title">超早割（40日後）</div>
+                <div class="discount-card-date" id="superEarlyDiscountDate">-</div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
