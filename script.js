@@ -166,6 +166,7 @@ const screens = {
   "body-size": document.getElementById("screen-body-size"),
   mast: document.getElementById("screen-mast"),
   delivery: document.getElementById("screen-delivery"),
+  discount: document.getElementById("screen-discount"),
   manual: document.getElementById("screen-manual"),
   ai: document.getElementById("screen-ai"),
   designGuide: document.getElementById("screen-designGuide")
@@ -367,6 +368,14 @@ function getSearchEntries() {
       title: "お届け日",
       keywords: ["お届け日", "配送", "発送", "到着", "マップ"],
       preview: "地域別のお届け目安を地図で確認できます。"
+    },
+    {
+      type: "tab",
+      tab: "discount",
+      label: "メインタブ",
+      title: "割引日",
+      keywords: ["割引日", "早割", "超早割", "20日後", "40日後", "日付"],
+      preview: "基準日から早割（20日後）と超早割（40日後）の日付を確認できます。"
     },
     {
       type: "tab",
@@ -649,6 +658,12 @@ function initCommandPalette() {
     },
     {
       label: "メインタブ",
+      title: "割引日",
+      keywords: ["割引日", "早割", "超早割", "20日後", "40日後"],
+      action: () => switchTab("discount")
+    },
+    {
+      label: "メインタブ",
       title: "マニュアル",
       keywords: ["マニュアル", "pdf"],
       action: () => switchTab("manual")
@@ -801,6 +816,51 @@ function initImagePreview() {
   });
 }
 
+
+// 割引日計算（早割・超早割）
+const discountBaseDateInput = document.getElementById("discountBaseDate");
+const earlyDiscountDateEl = document.getElementById("earlyDiscountDate");
+const superEarlyDiscountDateEl = document.getElementById("superEarlyDiscountDate");
+
+function formatDateForInput(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function formatJapaneseDate(date) {
+  const weekdays = ["日", "月", "火", "水", "木", "金", "土"];
+  return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日（${weekdays[date.getDay()]}）`;
+}
+
+function addDays(baseDate, days) {
+  const result = new Date(baseDate);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+function calculateDiscountDates() {
+  if (!discountBaseDateInput || !earlyDiscountDateEl || !superEarlyDiscountDateEl) return;
+
+  const value = discountBaseDateInput.value;
+  if (!value) return;
+
+  const [year, month, day] = value.split("-").map(Number);
+  const baseDate = new Date(year, month - 1, day);
+
+  earlyDiscountDateEl.textContent = formatJapaneseDate(addDays(baseDate, 20));
+  superEarlyDiscountDateEl.textContent = formatJapaneseDate(addDays(baseDate, 40));
+}
+
+function initDiscountDates() {
+  if (!discountBaseDateInput) return;
+
+  discountBaseDateInput.value = formatDateForInput(new Date());
+  discountBaseDateInput.addEventListener("input", calculateDiscountDates);
+  calculateDiscountDates();
+}
+
 if (bodySelect) {
   bodySelect.addEventListener("change", calculatePrice);
 }
@@ -910,5 +970,6 @@ designSubtabs.forEach((tab) => {
   });
 });
 
+initDiscountDates();
 initCommandPalette();
 initImagePreview();
