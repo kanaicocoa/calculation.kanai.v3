@@ -1052,3 +1052,80 @@ select {
   }
 }
 
+/* =========================
+   割引日
+========================= */
+.discount-box {
+  max-width: 760px;
+  margin: 30px auto 0;
+  background: #fff;
+  border: 2px solid #111;
+  border-radius: 18px;
+  padding: 28px;
+}
+
+.discount-label {
+  display: block;
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.discount-date-input {
+  width: 100%;
+  height: 56px;
+  border: 2px solid #c8c8c8;
+  border-radius: 12px;
+  padding: 0 16px;
+  font-size: 22px;
+  font-weight: 700;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+.discount-result-area {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.discount-card {
+  border: 2px solid #111;
+  border-radius: 16px;
+  padding: 22px;
+  background: #f7f7f7;
+}
+
+.discount-card-super {
+  background: #fff4d6;
+}
+
+.discount-card-title {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.discount-card-date {
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.discount-note {
+  margin-top: 18px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #666;
+}
+
+@media (max-width: 700px) {
+  .discount-result-area {
+    grid-template-columns: 1fr;
+  }
+
+  .discount-card-date {
+    font-size: 22px;
+  }
+}
